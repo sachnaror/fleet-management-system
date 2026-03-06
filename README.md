@@ -160,46 +160,55 @@ FLEETMANAGMENT/
 
 ## 🚀 Quick Start
 
-Choose your preferred deployment method:
-
-### Option A: Docker (Recommended for Production)
+### Option A: Docker Compose (Recommended)
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/sachnaror/fleet-management-system.git
 cd fleet-management-system
 
-# Start production server
+# Start the production server
 docker compose up -d
 
 # Seed sample data
 docker compose exec fleet-api python cli.py seed
 
-# Start with simulator (demo mode)
+# Start simulator (demo mode)
 docker compose --profile demo up -d
 ```
 
-### Option B: pip Install from [PyPI](https://pypi.org/project/fleet-management-system/)
+---
+
+### Option B: Run Directly from Docker Image (No Repo Needed)
 
 ```bash
-# Install as a Python package (live on PyPI!)
-pip install fleet-management-system
+# Pull the official image
+docker pull ghcr.io/sachnaror/fleet-management-system:v1.0.0
 
-# Seed sample data & start server
-fleet-management seed
-fleet-management run
-
-# Or run in development mode with hot-reload
-fleet-management run --dev
+# Run the container
+docker run -p 8000:8000 ghcr.io/sachnaror/fleet-management-system:v1.0.0
 ```
 
-### Option C: From Source
+Open the dashboard:
+
+http://localhost:8000
+
+API Docs:
+
+http://localhost:8000/docs
+
+---
+
+### Option C: Run with Persistent Data Volume
 
 ```bash
-cd FLEETMANAGMENT
-pip install -r requirements.txt
-python main.py --seed
+docker pull ghcr.io/sachnaror/fleet-management-system:v1.0.0
+
+docker run -p 8000:8000 -v fleet_data:/app/data ghcr.io/sachnaror/fleet-management-system:v1.0.0
 ```
+
+This keeps the SQLite database persistent even if the container restarts.
+
 
 ### Open the Dashboard
 - **Dashboard:** http://localhost:8000/
@@ -266,13 +275,8 @@ The project includes CI/CD pipelines that automatically:
 1. **Test** across Python 3.10–3.13 on every push
 2. **Build** Python package (wheel + sdist) and Docker image
 3. **Publish**  [GitHub Container Registry](https://github.com/sachnaror/fleet-management-system/pkgs/container/fleet-management-system) on tag push
-4. **Create** [GitHub Release](https://github.com/sachnaror/fleet-management-system/releases) with artifacts
 
-```bash
-# Create a release (triggers full CI/CD → PyPI + Docker + GitHub Release)
-git tag v1.1.0
-git push --tags
-```
+
 
 ---
 
