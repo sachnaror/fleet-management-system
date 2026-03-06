@@ -193,6 +193,7 @@ def seed_sample_data():
 # ── Run Server ─────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run(
         "main:app",
         host=settings.api.HOST,
