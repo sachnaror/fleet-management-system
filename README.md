@@ -240,6 +240,18 @@ docker compose ps
 docker compose down
 ```
 
+
+## 📘 API Documentation
+
+Public API docs:
+
+Redoc
+https://sachnaror.github.io/fleet-management-system
+
+Swagger
+https://sachnaror.github.io/fleet-management-system/swagger.html
+
+
 ### Environment Configuration
 
 Copy `.env.production` to `.env` and customize:
